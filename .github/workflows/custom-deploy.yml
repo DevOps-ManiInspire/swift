@@ -22,7 +22,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.1  # Change this to match your project
+          ruby-version: 2.7  # Change this to 2.4 if necessary
           bundler-cache: true
 
       - name: Install macOS Dependencies

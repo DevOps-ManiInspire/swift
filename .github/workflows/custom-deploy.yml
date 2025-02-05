@@ -1,4 +1,4 @@
-name: Swift
+name: Swift-Custom
 
 on:
   workflow_dispatch:

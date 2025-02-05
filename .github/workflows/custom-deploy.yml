@@ -1,0 +1,46 @@
+name: Swift
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+  pull_request:
+
+env:
+  DEVELOPER_DIR: /Applications/Xcode_12.4.app/Contents/Developer
+
+jobs:
+  build_and_test:
+    name: Build and Test
+    runs-on: macOS-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4  # Updated to latest version
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1  # Change this to match your project
+          bundler-cache: true
+
+      - name: Install macOS Dependencies
+        run: |
+          brew install xcpretty
+          sudo xcode-select --switch /Applications/Xcode_12.4.app/Contents/Developer
+
+      - name: Clean Bundler Cache
+        run: |
+          rm -rf ~/.bundle ~/.gem vendor/bundle
+
+      - name: Bundle Install
+        run: bundle install --verbose  # Added verbose logging for debugging
+
+      - name: Build and Test
+        run: exec fastlane scan --destination "platform=iOS Simulator,OS=14.4,name=iPhone 11" --scheme "Good News"
+
+      - name: After Success
+        run: |
+          slather
+          bash <(curl -s https://codecov.io/bash) -f ./cobertura.xml -X coveragepy -X gcov -X xcode

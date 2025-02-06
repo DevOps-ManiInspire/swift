@@ -1,0 +1,22 @@
+name: Swift
+
+on:
+  workflow_dispatch:
+
+env:
+  DEVELOPER_DIR: /Applications/Xcode_12.4.app/Contents/Developer
+
+jobs:
+  unit_test:
+    name: Unit Testing Pipeline
+    runs-on: macOS-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Test Results
+        uses: kishikawakatsumi/xcresulttool@v1.7.1
+        with:
+          path: UnitTestResults.xcresult
+        if: success() || failure()

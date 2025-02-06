@@ -22,6 +22,6 @@ jobs:
       #   #if: success() || failure()
 
       - name: Use xcresulttool from local repo
-        uses: ./.github/actions/xcresulttool
+        uses: ./.github/actions/xcresulttool-action
         with:
           path: UnitTestResults.xcresult

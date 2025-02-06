@@ -6,6 +6,11 @@ on:
 # env:
 #   DEVELOPER_DIR: /Applications/Xcode_12.4.app/Contents/Developer
 
+permissions:
+  contents: read
+  actions: write
+
+
 jobs:
   unit_test:
     name: Unit Testing Pipeline
@@ -25,3 +30,8 @@ jobs:
         uses: ./.github/actions/xcresulttool-action
         with:
           path: UnitTestResults.xcresult
+          title: Xcode test results
+          show-passed-tests: true
+          show-code-coverage: true
+          upload-bundles: always
+          

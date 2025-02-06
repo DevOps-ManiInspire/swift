@@ -31,7 +31,6 @@ jobs:
         with:
           path: UnitTestResults.xcresult
           title: Xcode test results
-          show-passed-tests: true
+          show-passed-tests: false
           show-code-coverage: true
           upload-bundles: always
-          

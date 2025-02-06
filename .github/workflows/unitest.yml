@@ -15,8 +15,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         
-      - name: Test Results
-        uses: kishikawakatsumi/xcresulttool@v1.7.1
+      # - name: Test Results
+      #   uses: kishikawakatsumi/xcresulttool@v1.7.1
+      #   with:
+      #     path: UnitTestResults.xcresult
+      #   #if: success() || failure()
+
+      - name: Use xcresulttool from local repo
+        uses: ./.github/actions/xcresulttool
         with:
           path: UnitTestResults.xcresult
-        if: success() || failure()

@@ -18,8 +18,16 @@ jobs:
       contents: write
       pull-requests: write
       repository-projects: write
-
+    outputs:
+      action-url: ${{ steps.getActionUrl.outputs.actionUrl }}
+      
     steps:
+      - name: Get action url
+        id: getActionUrl
+        run: |
+          actionUrl="${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}/"
+          echo "actionUrl=$actionUrl" >> $GITHUB_OUTPUT
+
       - name: Checkout
         uses: actions/checkout@v2
         

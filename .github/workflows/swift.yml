@@ -2,11 +2,6 @@ name: Swift
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - master
-      
-  pull_request:
 
 env:
   DEVELOPER_DIR: /Applications/Xcode_12.4.app/Contents/Developer

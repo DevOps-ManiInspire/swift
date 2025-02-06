@@ -2,9 +2,9 @@ name: Swift-Custom
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - master
+  # push:
+  #   branches:
+  #     - master
   pull_request:
 
 env:

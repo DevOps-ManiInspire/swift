@@ -45,5 +45,5 @@ jobs:
           show-passed-tests: false
           show-code-coverage: true
           upload-bundles: always
-          token: ${{ secrets.SWIFT_TOKEN_CLASSIC }}
+          token: ${{ secrets.SWIFT_TOKEN_APP }}
         if: success() || failure()

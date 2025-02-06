@@ -2,6 +2,9 @@ name: UnitTest
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - master
 
 # env:
 #   DEVELOPER_DIR: /Applications/Xcode_12.4.app/Contents/Developer
@@ -34,4 +37,5 @@ jobs:
           show-passed-tests: false
           show-code-coverage: true
           upload-bundles: always
-          token: ${{ secrets.SWIFT_TOKEN_CLASSIC }}
+          #token: ${{ secrets.SWIFT_TOKEN_CLASSIC }}
+        if: success() || failure()

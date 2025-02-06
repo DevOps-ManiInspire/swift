@@ -34,4 +34,4 @@ jobs:
           show-passed-tests: false
           show-code-coverage: true
           upload-bundles: always
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.SWIFT_TOKEN }}

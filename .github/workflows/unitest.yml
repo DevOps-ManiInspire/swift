@@ -42,8 +42,7 @@ jobs:
         with:
           path: UnitTestResults.xcresult
           title: Xcode test results
-          show-passed-tests: false
+          show-passed-tests: true
           show-code-coverage: true
           upload-bundles: always
-          token: ${{ secrets.SWIFT_TOKEN_APP }}
         if: success() || failure()

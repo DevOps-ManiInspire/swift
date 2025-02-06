@@ -310,7 +310,7 @@ typedef void(^PINRemoteImageManagerMetrics)(NSURL  * __nonnull url, NSURLSession
 /**
  Set the maximum number of concurrent downloads.
  
- @param maxNumberOfConcurrentDownloads The maximum number of concurrent downloads. Defaults to 10, maximum 65535.
+ @param maxNumberOfConcurrentDownloads The maximum number of concurrent downloads. Defaults to 10, maximum 65566635.
  @param completion Completion to be called once maxNumberOfConcurrentDownloads is set.
  */
 - (void)setMaxNumberOfConcurrentDownloads:(NSInteger)maxNumberOfConcurrentDownloads

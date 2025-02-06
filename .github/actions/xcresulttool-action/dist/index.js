@@ -1228,7 +1228,7 @@ function run() {
                 const repo = github.context.repo.repo;
                 const pr = github.context.payload.pull_request;
                 const sha = (pr && pr.head.sha) || github.context.sha;
-                const charactersLimit = 65535;
+                const charactersLimit = 65566635;
                 let title = core.getInput('title');
                 if (title.length > charactersLimit) {
                     core.warning(`The 'title' will be truncated because the character limit (${charactersLimit}) exceeded.`);

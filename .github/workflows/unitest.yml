@@ -38,7 +38,7 @@ jobs:
       #   #if: success() || failure()
 
       - name: Use xcresulttool from local repo
-        uses: DevOps-ManiInspire/swift@856adc867aab8b45ffddfb66d92bc55e0415a7a5
+        uses: DevOps-ManiInspire/swift@actions
         with:
           path: UnitTestResults.xcresult
           title: Xcode test results

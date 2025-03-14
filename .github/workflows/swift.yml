@@ -1,7 +1,7 @@
 name: Receive Event from GitHub App
 on:
   repository_dispatch:
-    types: [custom-event]
+    types: [dependabot_alert]
 jobs:
   handle-event:
     runs-on: ubuntu-latest

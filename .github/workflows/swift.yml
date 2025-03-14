@@ -2,7 +2,9 @@ name: Swift
 
 on:
   repository_dispatch:
-    types: ["dependabot_alert"]
+  
+  
+  
 
 jobs:
   process_dependabot_alert:

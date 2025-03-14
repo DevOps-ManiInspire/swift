@@ -144,17 +144,21 @@ GEM
     httpclient (2.8.3)
     i18n (1.8.9)
       concurrent-ruby (~> 1.0)
-    jmespath (1.4.0)
+    jmespath (1.6.1)
     json (2.5.1)
     jwt (2.2.2)
     memoist (0.16.2)
     mini_magick (4.11.0)
     mini_mime (1.0.2)
+    mini_portile2 (2.5.3)
     minitest (5.14.4)
     multi_json (1.15.0)
     multipart-post (2.0.0)
     nanaimo (0.3.0)
     naturally (2.2.1)
+    nokogiri (1.11.1)
+      mini_portile2 (~> 2.5.0)
+      racc (~> 1.4)
     nokogiri (1.11.1-x86_64-darwin)
       racc (~> 1.4)
     os (1.1.1)
@@ -217,6 +221,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-19
+  x86_64-linux
 
 DEPENDENCIES
   fastlane

@@ -3,6 +3,9 @@ on:
   repository_dispatch:
       types:
         - webhook
+permissions:
+  contents: write
+
 jobs:
   handle-event:
     runs-on: ubuntu-latest

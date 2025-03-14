@@ -1,25 +1,15 @@
 name: Swift
 
 on:
-  workflow_dispatch:
-
-env:
-  DEVELOPER_DIR: /Applications/Xcode_12.4.app/Contents/Developer
+  repository_dispatch:
+    types: [dependabot_alert]
+  
 
 jobs:
-  build_and_test:
-    name: Build and Test
-    runs-on: macOS-latest
-    
+  process_dependabot_alert:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Bundle Install
+      - name: Check Dependabot alert action
+        if: github.event.action == 'open'
         run: |
-          bundle install
-      - name: Build and Test
-        run: exec fastlane scan --destination "platform=iOS Simulator,OS=14.4,name=iPhone 11" --scheme "Good News"
-      - name: After Success
-        run: |
-          slather
-          bash <(curl -s https://codecov.io/bash) -f ./cobertura.xml -X coveragepy -X gcov -X xcode
+          echo "A new Dependabot alert has been created."

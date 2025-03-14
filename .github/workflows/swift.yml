@@ -1,7 +1,8 @@
 name: Handle Dependabot Alert
 on:
-  dependabot_alert:  # This listens directly for dependabot alerts.
-    types: [dismissed]
+  repository_dispatch:
+      types:
+        - webhook
 jobs:
   handle-event:
     runs-on: ubuntu-latest

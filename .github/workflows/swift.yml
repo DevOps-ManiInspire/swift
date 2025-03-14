@@ -13,3 +13,11 @@ jobs:
         if: github.event.action == 'open'
         run: |
           echo "A new Dependabot alert has been created."
+      - name: Update alert details
+        if: github.event.action == 'updated'
+        run: |
+          echo "Dependabot alert has been updated."
+      - name: Dismiss alert
+        if: github.event.action == 'dismissed'
+        run: |
+          echo "Dependabot alert has been dismissed."

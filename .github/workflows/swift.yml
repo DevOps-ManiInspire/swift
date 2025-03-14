@@ -1,7 +1,7 @@
-name: Receive Event from GitHub App
+name: Handle Dependabot Alert
 on:
-  repository_dispatch:
-    types: [dependabot_alert]
+  dependabot_alert:  # This listens directly for dependabot alerts.
+    types: [dismissed]
 jobs:
   handle-event:
     runs-on: ubuntu-latest

@@ -2,16 +2,13 @@ name: Swift
 
 on:
   repository_dispatch:
-  
-  
-  
+
 
 jobs:
   process_dependabot_alert:
     runs-on: ubuntu-latest
     steps:
       - name: Check Dependabot alert action
-        if: github.event.action == 'open'
         run: |
           echo "A new Dependabot alert has been created."
       - name: Update alert details

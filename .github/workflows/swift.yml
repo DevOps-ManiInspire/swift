@@ -1,6 +1,6 @@
 name: Handle Dependabot Alert
 on:
-  workflow_dispatch:
+  repository_dispatch:
 
 permissions:
   contents: write

@@ -12,6 +12,5 @@ jobs:
     steps:
       - name: Print Event Payload
         run: echo "${{ toJson(github.event) }}"
- 
- 
+
  

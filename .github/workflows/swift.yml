@@ -20,3 +20,8 @@ jobs:
         
       - name: Print GitHub Event Payload
         run: echo '${{ toJson(github.event) }}'
+        
+      - name: Print Logs URL
+        run: echo '${{ toJson(github.event.workflow_run.logs_url) }}'
+        
+

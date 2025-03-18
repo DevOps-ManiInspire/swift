@@ -5,6 +5,8 @@ on:
   issues:
   workflow_run:
     workflows: ["UnitTest"]
+    types:
+      - completed
 
 permissions:
   contents: write

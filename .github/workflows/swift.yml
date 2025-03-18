@@ -16,4 +16,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print Event Payload
-        run: echo "${{ github.event.workflow_run }}"
+        run: echo "${{ github.head_repository.downloads_url }}"

@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
   issues:
   workflow_run:
+    workflows: ["UnitTest"]
 
 permissions:
   contents: write

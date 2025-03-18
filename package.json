@@ -2,9 +2,9 @@
   "name": "vulnerable-project",
   "version": "1.0.0",
   "dependencies": {
-    "lodash": "4.17.20",  // Vulnerable (CVE-2021-23337)
-    "express": "4.16.0",  // Vulnerable (CVE-2022-24999)
-    "mongoose": "5.4.0",  // Vulnerable (CVE-2019-17426)
-    "debug": "2.6.8"  // Vulnerable (CVE-2017-16137)
+    "lodash": "4.17.20",  
+    "express": "4.16.0", 
+    "mongoose": "5.4.0",
+    "debug": "2.6.8"
   }
 }

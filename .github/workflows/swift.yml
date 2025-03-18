@@ -3,6 +3,7 @@ on:
   repository_dispatch:
   workflow_dispatch:
   issues:
+  workflow_run:
 
 permissions:
   contents: write

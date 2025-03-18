@@ -1,0 +1,14 @@
+name: Test
+
+on:
+  push: 
+    branches:
+      - master
+
+jobs:
+  ExecuteShell:
+     runs-on: macOS-latest
+     name: Build and Test
+     steps:
+      - name: Checkout
+        uses: actions/checkout@v4  # Updated to latest version

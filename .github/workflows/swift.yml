@@ -17,12 +17,3 @@ jobs:
     steps:
       - name: Print Event Payload
         run: echo "${{ toJson(github.event) }}"
-      - name: Dependabot
-        uses: github/dependabot-action@main
-        env:
-          DEPENDABOT_DISABLE_CLEANUP: 1
-          DEPENDABOT_ENABLE_CONNECTIVITY_CHECK: 0
-          GITHUB_TOKEN: "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"
-          # GITHUB_DEPENDABOT_JOB_TOKEN: ***
-          # GITHUB_DEPENDABOT_CRED_TOKEN: ***
- 

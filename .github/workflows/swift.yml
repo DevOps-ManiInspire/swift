@@ -39,5 +39,7 @@ jobs:
                -o logs.zip
           unzip logs.zip -d logs
           ls -R logs
+          cat logs/Dependabot/system.txt 
+          cat logs/0_Dependabot.txt
 
 

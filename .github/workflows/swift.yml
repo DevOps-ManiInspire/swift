@@ -35,7 +35,12 @@ jobs:
           
           unzip logs.zip -d logs
           cat logs/0_Dependabot.txt
-          mv logs/0_Dependabot.txt ~
+          mkdir -p .github/logs
+          mv logs/0_Dependabot.txt .github/logs/
+
+      - name: Verify Log File Exists
+        run: ls -R .github/logs
+
       - name: checkout
         uses: actions/checkout@v4
         with:

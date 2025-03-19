@@ -4,7 +4,7 @@ import datetime
 from slack import slackNotification
 import os
 
-log_file = os.path.expanduser("0_Dependabot.txt")  # Ensure this matches
+log_file = os.path.expanduser("dependabot.log")  # Ensure this matches
 
 if not os.path.exists(log_file):
     raise FileNotFoundError(f"Log file not found: {os.path.abspath(log_file)}")
@@ -12,18 +12,18 @@ if not os.path.exists(log_file):
 with open(log_file, "r") as f:
     data = f.read()
     print("Log File Content:")
-    print(data)
     
 now = datetime.datetime.now(datetime.UTC)
 
 token="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"
+token="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"
 
 slackWrapper = slackNotification("https://hooks.slack.com/services/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","#monitoring")
 
 def fetchRecentDependabotIssues(data, ecoSystem):
-    all_alerts = [alert for page in data for alert in page]  
-    for res in all_alerts:
-        
+    #all_alerts = [alert for page in data for alert in page]  
+    for res in data:
+        #print(res)
         summary =res['security_advisory']['summary']
         package_name = res['dependency']['package']['name']
         cve_id = res['security_advisory']['cve_id']
@@ -113,11 +113,14 @@ def filterParentJobDetails(log_file):
                 jobDefinition=json.loads(line[-1].strip()) \
 
     dependencies = jobDefinition["job"]["dependencies"]
-    print("Dependencies:", dependencies[0])
+    #print("Dependencies:", dependencies[0])
 
     return (dependencies[0])
 
 headPipelinePackage = filterParentJobDetails(log_file)
+
+page=1
+alerts = []
 
 while True:
     print(f"Fetching page {page}...")
@@ -133,7 +136,7 @@ while True:
 
     # Handle possible API failure
     if response.status_code != 200:
-        print(f"Error: {response.status_code}, {response.text}")
+        #print(f"Error: {response.status_code}, {response.text}")
         break
 
     data = response.json()  # Parse response JSON
@@ -142,7 +145,7 @@ while True:
     if not data:  
         print("No more alerts, stopping.")
         break
-
+    
     alerts.extend(data)  # Append to list
     page += 1
 

@@ -6,6 +6,7 @@
     "express": "4.16.0", 
     "mongoose": "5.4.0", 
     "debug": "2.6.8",
-    "bluebird": "1"
+    "bluebird": "1",
+    "logquery": "3.12"
   }
 }

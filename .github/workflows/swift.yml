@@ -35,7 +35,7 @@ jobs:
           
           unzip logs.zip -d logs
           cat logs/0_Dependabot.txt
-          pwd
+          ls -lrt /home/runner/work/swift/swift
       - name: checkout
         uses: actions/checkout@v4
         with:

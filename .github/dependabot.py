@@ -124,6 +124,8 @@ page = 1
 
 while True:
   print("&&&&&&&")
+  print(page)
+  print(x.text)
   x = requests.get(f"https://api.github.com/repos/DevOps-ManiInspire/swift/dependabot/alerts?page={page}", headers = {"Accept": "application/vnd.github+json", "Authorization": f"Bearer {token}", "X-GitHub-Api-Version":"2022-11-28"})
   alerts.append(json.loads(x.text))
   page += 1

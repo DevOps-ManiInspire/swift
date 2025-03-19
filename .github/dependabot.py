@@ -2,10 +2,9 @@ import json
 import requests
 import datetime
 from slack import slackNotification
-
 import os
 
-logFile = "./.github/logs/0_Dependabot.txt"  # Ensure this matches
+log_file = os.path.expanduser("~/logs/0_Dependabot.txt")  # Ensure this matches
 
 if not os.path.exists(logFile):
     raise FileNotFoundError(f"Log file not found: {os.path.abspath(logFile)}")

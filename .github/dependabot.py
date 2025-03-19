@@ -5,7 +5,7 @@ from slack import slackNotification
 
 import os
 
-logFile = "./logs/0_Dependabot.txt"  # Ensure this matches
+logFile = "./.github/logs/0_Dependabot.txt"  # Ensure this matches
 
 if not os.path.exists(logFile):
     raise FileNotFoundError(f"Log file not found: {os.path.abspath(logFile)}")

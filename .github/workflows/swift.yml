@@ -36,10 +36,13 @@ jobs:
       #     unzip logs.zip -d logs
       #     cat logs/0_Dependabot.txt
         
-      - name: Run Python script
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.13' 
-      - run: ls -lrt && python ~/.github/dependabot.py
-        
+          python-version: '3.11'  # Change if needed
 
+      - name: Check Python Version
+        run: python --version
+
+      - name: Run Dependabot Script
+        run: python .github/dependabot.py

@@ -44,9 +44,6 @@ jobs:
       - name: Check Python Version
         run: python --version
 
-      - name: Verify Files
-        run: ls -R .github  # Check if the script exists
-
       - name: Find All Python Files
         run: find . -name "*.py"
 

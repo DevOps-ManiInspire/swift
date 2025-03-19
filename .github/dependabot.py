@@ -27,7 +27,7 @@ def fetchRecentDependabotIssues(data, ecoSystem):
           issueTime = datetime.datetime.strptime(res['created_at'],"%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=datetime.timezone.utc)
           time_diff = now - issueTime
 
-          if time_diff.total_seconds() > 300:
+          if time_diff.total_seconds() <= 300:
               slack_message = 	[
                                   {
                                     "type": "section",

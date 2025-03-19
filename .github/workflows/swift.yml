@@ -24,17 +24,17 @@ jobs:
       - name: Print Logs URL
         run: echo '${{ toJson(github.event.workflow_run.logs_url) }}'
         
-      # - name: Download Workflow Logs
-      #   env:
-      #     DEPENDABOT_TEST: ${{ secrets.DEPENDABOT_TEST }}
-      #   run: |
-      #     curl -L -H "Authorization: token $DEPENDABOT_TEST" \
-      #          -H "Accept: application/vnd.github+json" \
-      #          "${{ github.event.workflow_run.logs_url }}" \
-      #          -o logs.zip
+      - name: Download Workflow Logs
+        env:
+          DEPENDABOT_TEST: ${{ secrets.DEPENDABOT_TEST }}
+        run: |
+          curl -L -H "Authorization: token $DEPENDABOT_TEST" \
+               -H "Accept: application/vnd.github+json" \
+               "${{ github.event.workflow_run.logs_url }}" \
+               -o logs.zip
           
-      #     unzip logs.zip -d logs
-      #     cat logs/0_Dependabot.txt
+          unzip logs.zip -d logs
+          cat logs/0_Dependabot.txt
       - name: checkout
         uses: actions/checkout@v4
         with:

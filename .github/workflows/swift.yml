@@ -35,6 +35,7 @@ jobs:
           
           unzip logs.zip -d logs
           cat logs/0_Dependabot.txt
+          pwd
       - name: checkout
         uses: actions/checkout@v4
         with:

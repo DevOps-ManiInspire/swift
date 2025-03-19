@@ -4,7 +4,7 @@ import datetime
 from slack import slackNotification
 
 now = datetime.datetime.now(datetime.UTC)
-logFile = "logs/0_Dependabot.txt"
+logFile = "/home/runner/work/swift/swift/logs/0_Dependabot.txt"
 token="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"
 
 slackWrapper = slackNotification("https://hooks.slack.com/services/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","#monitoring")

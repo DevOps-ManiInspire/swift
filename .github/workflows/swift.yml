@@ -28,15 +28,11 @@ jobs:
         env:
           DEPENDABOT_TEST: ${{ secrets.DEPENDABOT_TEST }}
         run: |
-          # curl -L -H "Authorization: token $DEPENDABOT_TEST" \
-          #      -H "Accept: application/vnd.github+json" \
-          #      "${{ github.event.workflow_run.logs_url }}" \
-          #      -o logs.zip
-          
           curl -L -H "Authorization: token $DEPENDABOT_TEST" \
                -H "Accept: application/vnd.github+json" \
-               ""https://api.github.com/repos/DevOps-ManiInspire/swift/actions/runs/13918323512/logs"" \
+               "${{ github.event.workflow_run.logs_url }}" \
                -o logs.zip
+          
           unzip logs.zip -d logs
           cat logs/0_Dependabot.txt
         

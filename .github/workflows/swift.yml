@@ -58,5 +58,5 @@ jobs:
           python-version: '3.11'
 
       - name: Run Dependabot Script
-        run: python ./.github/dependabot.py
+        run: pip install -r ./.github/requirements.txt && python ./.github/dependabot.py
 

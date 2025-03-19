@@ -3,6 +3,18 @@ import requests
 import datetime
 from slack import slackNotification
 
+import os
+
+logFile = "./logs/0_Dependabot.txt"  # Ensure this matches
+
+if not os.path.exists(logFile):
+    raise FileNotFoundError(f"Log file not found: {os.path.abspath(logFile)}")
+
+with open(logFile, "r") as f:
+    data = f.read()
+    print("Log File Content:")
+    print(data)
+    
 now = datetime.datetime.now(datetime.UTC)
 logFile = "~/logs/0_Dependabot.txt"
 token="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"

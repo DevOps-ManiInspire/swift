@@ -49,9 +49,6 @@ jobs:
       - name: Check Python Version
         run: python --version
 
-      - name: Find All Python Files
-        run: find . -name "*.py"
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:

@@ -119,17 +119,31 @@ def filterParentJobDetails(log_file):
 
 headPipelinePackage = filterParentJobDetails(log_file)
 
-alerts= []
-page = 1
-
 while True:
-  print("&&&&&&&")
-  print(page)
-  print(x.text)
-  x = requests.get(f"https://api.github.com/repos/DevOps-ManiInspire/swift/dependabot/alerts?page={page}", headers = {"Accept": "application/vnd.github+json", "Authorization": f"Bearer {token}", "X-GitHub-Api-Version":"2022-11-28"})
-  alerts.append(json.loads(x.text))
-  page += 1
-  if json.loads(x.text) == []:
-      break
+    print(f"Fetching page {page}...")
+
+    response = requests.get(
+        f"https://api.github.com/repos/DevOps-ManiInspire/swift/dependabot/alerts?page={page}",
+        headers={
+            "Accept": "application/vnd.github+json",
+            "Authorization": f"Bearer {token}",
+            "X-GitHub-Api-Version": "2022-11-28",
+        },
+    )
+
+    # Handle possible API failure
+    if response.status_code != 200:
+        print(f"Error: {response.status_code}, {response.text}")
+        break
+
+    data = response.json()  # Parse response JSON
+
+    # Check if the response is empty before appending
+    if not data:  
+        print("No more alerts, stopping.")
+        break
+
+    alerts.extend(data)  # Append to list
+    page += 1
 
 fetchRecentDependabotIssues(alerts,headPipelinePackage)

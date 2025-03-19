@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -47,13 +47,8 @@ jobs:
           cat logs/0_Dependabot.txt
           mkdir -p .github/logs
           mv logs/0_Dependabot.txt .github/logs/
-
-      - name: Verify Log File Exists
-        run: ls -R .github/logs
-
-      - name: Check Python Version
-        run: python --version
-
-      - name: Run Dependabot Script
-        run: pip install -r ./.github/requirements.txt && python ./.github/dependabot.py
-
+          ls -lrt .github/logs
+          ls -lrt .github
+          ls -lrt
+          pip install -r ./.github/requirements.txt
+          python ./.github/dependabot.py

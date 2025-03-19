@@ -20,7 +20,6 @@ token="github_pat_11BIPQGNQ0di65zBTgvPUy_0fF4Xys4x3go5gwW0NjE8NM2U2U3s8kkePTCgHU
 
 slackWrapper = slackNotification("https://hooks.slack.com/services/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","#monitoring")
 
-
 def fetchRecentDependabotIssues(data, ecoSystem):
     all_alerts = [alert for page in data for alert in page]  
     for res in all_alerts:

@@ -4,7 +4,7 @@ import datetime
 from slack import slackNotification
 import os
 
-log_file = os.path.expanduser("~/logs/0_Dependabot.txt")  # Ensure this matches
+log_file = os.path.expanduser("0_Dependabot.txt")  # Ensure this matches
 
 if not os.path.exists(log_file):
     raise FileNotFoundError(f"Log file not found: {os.path.abspath(log_file)}")

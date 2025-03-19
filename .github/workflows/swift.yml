@@ -40,6 +40,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.13' 
-      - run: python .github/dependabot.py
+      - run: ls -lrt && python .github/dependabot.py
         
 

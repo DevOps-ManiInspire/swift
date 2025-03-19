@@ -6,16 +6,16 @@ import os
 
 log_file = os.path.expanduser("~/logs/0_Dependabot.txt")  # Ensure this matches
 
-if not os.path.exists(logFile):
-    raise FileNotFoundError(f"Log file not found: {os.path.abspath(logFile)}")
+if not os.path.exists(log_file):
+    raise FileNotFoundError(f"Log file not found: {os.path.abspath(log_file)}")
 
-with open(logFile, "r") as f:
+with open(log_file, "r") as f:
     data = f.read()
     print("Log File Content:")
     print(data)
     
 now = datetime.datetime.now(datetime.UTC)
-logFile = "~/logs/0_Dependabot.txt"
+
 token="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"
 
 slackWrapper = slackNotification("https://hooks.slack.com/services/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","#monitoring")
@@ -105,8 +105,8 @@ def fetchRecentDependabotIssues(data, ecoSystem):
               slackWrapper.publishSlackNotificationWebHook("The timestamp is older than 5 minutes.")
 
 
-def filterParentJobDetails(logFile):
-    with open(logFile, "r") as f:
+def filterParentJobDetails(log_file):
+    with open(log_file, "r") as f:
         lines = f.readlines()
         for line in lines:
             if 'Job definition:' in line:
@@ -118,7 +118,7 @@ def filterParentJobDetails(logFile):
 
     return (dependencies[0])
 
-headPipelinePackage = filterParentJobDetails(logFile)
+headPipelinePackage = filterParentJobDetails(log_file)
 
 alerts= []
 page = 1

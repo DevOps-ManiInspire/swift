@@ -2,9 +2,9 @@
   "name": "vulnerable-project",
   "version": "1.0.0",
   "dependencies": {
-    "lodash": "4.17.20",
-    "express": "4.16.0",
-    "mongoose": "5.4.0",
-    "debug": "2.6.8"
+    "lodash": "4.17.21",
+    "express": "4.20.0",
+    "mongoose": "6.13.6",
+    "debug": "2.6.9"
   }
 }

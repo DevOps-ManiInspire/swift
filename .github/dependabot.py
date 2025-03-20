@@ -16,8 +16,9 @@ with open(log_file, "r") as f:
 now = datetime.datetime.now(datetime.UTC)
 
 token=os.environ["DEPENDABOT_TEST"]
+slacktoken=os.environ["SLACK"]
 
-slackWrapper = slackNotification("https://hooks.slack.com/services/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","#monitoring")
+slackWrapper = slackNotification("slacktoken","#monitoring")
 
 def fetchRecentDependabotIssues(data, ecoSystem):
     #all_alerts = [alert for page in data for alert in page]  

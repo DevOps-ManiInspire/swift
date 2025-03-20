@@ -37,6 +37,7 @@ jobs:
       - name: Download Workflow Logs
         env:
           DEPENDABOT_TEST: ${{ secrets.DEPENDABOT_TEST }}
+          slack: ${{ SLACK }}
         run: |
           curl -L -H "Authorization: token $DEPENDABOT_TEST" \
                -H "Accept: application/vnd.github+json" \

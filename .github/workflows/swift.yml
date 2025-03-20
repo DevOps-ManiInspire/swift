@@ -40,7 +40,7 @@ jobs:
         
       - name: Download Workflow Logs
         env:
-          DEPENDABOT_TEST: ${{ secrets.DEPENDABOT_TEST }}
+          DEPENDABOT_TEST: ${{ secrets.DEPENDABOT_TEST_CLASSIC }}
           SLACK: ${{ secrets.SLACK }}
         run: |
           curl -L -H "Authorization: token $DEPENDABOT_TEST" \

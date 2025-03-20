@@ -31,10 +31,10 @@ def fetchRecentDependabotIssues(data, ecoSystem):
         vuln_range = res["security_advisory"]['vulnerabilities'][0]['vulnerable_version_range']
         advisory_url = res["security_advisory"]['references'][0]['url']
         alert_url = res["html_url"]
+        issueTime = datetime.datetime.strptime(res['updated_at'],"%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=datetime.timezone.utc)
+        time_diff = now - issueTime
 
-        if package_name == ecoSystem and res['state'] == "open":
-          issueTime = datetime.datetime.strptime(res['updated_at'],"%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=datetime.timezone.utc)
-          time_diff = now - issueTime
+        if res['state'] == "open":
           print(res)
           print(now)
           print(f"issueTime: {issueTime}")
@@ -43,7 +43,7 @@ def fetchRecentDependabotIssues(data, ecoSystem):
           print(f"CreatedAt: {res['created_at']}")
           print(time_diff)
           print(package_name)
-          if time_diff.total_seconds() <= 300:
+          if time_diff.total_seconds() <= 100:
               slack_message = 	[
                                   {
                                     "type": "section",

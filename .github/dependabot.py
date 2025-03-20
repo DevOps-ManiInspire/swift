@@ -138,7 +138,7 @@ while True:
 
     # Handle possible API failure
     if response.status_code != 200:
-        print(f"Error: {response.status_code}, {response.text}")
+        #print(f"Error: {response.status_code}, {response.text}")
         break
 
     data = response.json()  # Parse response JSON

@@ -18,7 +18,7 @@ now = datetime.datetime.now(datetime.UTC)
 token=os.environ["DEPENDABOT_TEST"]
 slacktoken=os.environ["SLACK"]
 
-slackWrapper = slackNotification("slacktoken","#monitoring")
+slackWrapper = slackNotification(slacktoken,"#monitoring")
 
 def fetchRecentDependabotIssues(data, ecoSystem):
     #all_alerts = [alert for page in data for alert in page]  
@@ -32,11 +32,12 @@ def fetchRecentDependabotIssues(data, ecoSystem):
         advisory_url = res["security_advisory"]['references'][0]['url']
         alert_url = res["html_url"]
 
-
+        print(f"issueTime: {issueTime}")
+        print(f"CreatedAt: {res['created_at']}")
         if package_name == ecoSystem:
           issueTime = datetime.datetime.strptime(res['created_at'],"%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=datetime.timezone.utc)
           time_diff = now - issueTime
-
+          print(time_diff)
           if time_diff.total_seconds() <= 300:
               slack_message = 	[
                                   {

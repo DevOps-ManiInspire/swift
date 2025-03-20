@@ -32,7 +32,7 @@ def fetchRecentDependabotIssues(data, ecoSystem):
         advisory_url = res["security_advisory"]['references'][0]['url']
         alert_url = res["html_url"]
 
-        if package_name == ecoSystem:
+        if package_name == ecoSystem and res['state'] == "open":
           issueTime = datetime.datetime.strptime(res['updated_at'],"%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=datetime.timezone.utc)
           time_diff = now - issueTime
           print(f"issueTime: {issueTime}")

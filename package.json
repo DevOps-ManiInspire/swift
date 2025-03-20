@@ -2,8 +2,12 @@
   "name": "vulnerable-project",
   "version": "1.0.0",
   "dependencies": {
+<<<<<<< HEAD
     "lodash": "4.17.21",
     "express": "4.16.0",
     "mongoose": "5.4.0"
+=======
+    "lodash": "4.17.20"
+>>>>>>> 22c6299 (Triggered Action)
   }
 }

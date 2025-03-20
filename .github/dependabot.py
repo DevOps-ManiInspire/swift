@@ -15,8 +15,7 @@ with open(log_file, "r") as f:
     
 now = datetime.datetime.now(datetime.UTC)
 
-token="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"
-#token="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"
+token="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"
 
 slackWrapper = slackNotification("https://hooks.slack.com/services/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","#monitoring")
 
@@ -138,7 +137,7 @@ while True:
 
     # Handle possible API failure
     if response.status_code != 200:
-        #print(f"Error: {response.status_code}, {response.text}")
+        print(f"Error: {response.status_code}, {response.text}")
         break
 
     data = response.json()  # Parse response JSON

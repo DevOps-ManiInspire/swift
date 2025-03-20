@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   issues:
   workflow_run:
-    workflows: ["UnitTest"]
+    workflows: ["Dependabot Updates"]
     types:
       - completed
 
@@ -15,14 +15,42 @@ jobs:
   handle-event:
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sleep for 90 seconds
+        run: sleep 90s
+        shell: bash
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
       - name: Print Event Payload
-        run: echo "${{ toJson(github.event) }}"
-      - name: Dependabot
-        uses: github/dependabot-action@main
+        run: echo "${{ github.head_repository.downloads_url }}"
+        
+      - name: Print GitHub Event Payload
+        run: echo '${{ toJson(github.event) }}'
+        
+      - name: Print Logs URL
+        run: echo '${{ toJson(github.event.workflow_run.logs_url) }}'
+        
+      - name: Download Workflow Logs
         env:
-          DEPENDABOT_DISABLE_CLEANUP: 1
-          DEPENDABOT_ENABLE_CONNECTIVITY_CHECK: 0
-          GITHUB_TOKEN: "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"
-          # GITHUB_DEPENDABOT_JOB_TOKEN: ***
-          # GITHUB_DEPENDABOT_CRED_TOKEN: ***
- 
+          DEPENDABOT_TEST: ${{ secrets.DEPENDABOT_TEST }}
+          SLACK: ${{ secrets.SLACK }}
+        run: |
+          curl -L -H "Authorization: token $DEPENDABOT_TEST" \
+               -H "Accept: application/vnd.github+json" \
+               "${{ github.event.workflow_run.logs_url }}" \
+               -o logs.zip
+          
+          unzip logs.zip -d logs
+          # cat logs/0_Dependabot.txt
+          mv logs/0_Dependabot.txt .github/dependabot.log
+          ls -lrt .github
+          pip install -r ./.github/requirements.txt
+          cd .github && python dependabot.py

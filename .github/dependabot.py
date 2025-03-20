@@ -32,11 +32,11 @@ def fetchRecentDependabotIssues(data, ecoSystem):
         advisory_url = res["security_advisory"]['references'][0]['url']
         alert_url = res["html_url"]
 
-        print(f"issueTime: {issueTime}")
-        print(f"CreatedAt: {res['created_at']}")
         if package_name == ecoSystem:
           issueTime = datetime.datetime.strptime(res['created_at'],"%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=datetime.timezone.utc)
           time_diff = now - issueTime
+          print(f"issueTime: {issueTime}")
+          print(f"CreatedAt: {res['created_at']}")
           print(time_diff)
           if time_diff.total_seconds() <= 300:
               slack_message = 	[

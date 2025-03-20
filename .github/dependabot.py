@@ -42,6 +42,7 @@ def fetchRecentDependabotIssues(data, ecoSystem):
           print(f"UpdatedAt: {res['updated_at']}")
           print(f"CreatedAt: {res['created_at']}")
           print(time_diff)
+          print(package_name)
           if time_diff.total_seconds() <= 300:
               slack_message = 	[
                                   {

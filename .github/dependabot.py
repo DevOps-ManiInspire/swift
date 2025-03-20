@@ -15,7 +15,7 @@ with open(log_file, "r") as f:
     
 now = datetime.datetime.now(datetime.UTC)
 
-token="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"
+token=os.environ["DEPENDABOT_TEST"]
 
 slackWrapper = slackNotification("https://hooks.slack.com/services/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","#monitoring")
 

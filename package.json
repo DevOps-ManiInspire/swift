@@ -2,7 +2,6 @@
   "name": "vulnerable-project",
   "version": "1.0.0",
   "dependencies": {
-    "lodash": "4.17.20",
-    "express": "4.16.0"
+    "lodash": "4.17.20"
   }
 }

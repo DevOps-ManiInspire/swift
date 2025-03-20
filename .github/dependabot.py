@@ -17,7 +17,7 @@ now = datetime.datetime.now(datetime.UTC)
 
 token=os.environ["DEPENDABOT_TEST"]
 
-slackWrapper = slackNotification("https://hooks.slack.com/services/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","#monitoring")
+slackWrapper = slackNotification("https://hooks.slack.com/services/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","#monitoring")
 
 def fetchRecentDependabotIssues(data, ecoSystem):
     #all_alerts = [alert for page in data for alert in page]  

@@ -20,8 +20,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Sleep for 90 seconds
-        run: sleep 90s
+      - name: Sleep for 10 seconds
+        run: sleep 10s
         shell: bash
 
       - name: Set up Python

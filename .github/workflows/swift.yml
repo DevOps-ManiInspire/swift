@@ -45,7 +45,7 @@ jobs:
           
           unzip logs.zip -d logs
           cat logs/0_Dependabot.txt
-          mv logs/0_Dependabot.txt .github/
+          mv logs/0_Dependabot.txt .github/dependabot.log
           ls -lrt .github
           pip install -r ./.github/requirements.txt
           cd .github && python dependabot.py

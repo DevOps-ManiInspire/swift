@@ -24,8 +24,6 @@ def fetchRecentDependabotIssues(data, ecoSystem):
     for res in data:
         #print(res)
         summary =res['security_advisory']['summary']
-
-        print(summary)
         package_name = res['dependency']['package']['name']
         cve_id = res['security_advisory']['cve_id']
         severity = res['security_advisory']['severity']

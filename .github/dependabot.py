@@ -19,6 +19,7 @@ def fetchRecentDependabotIssues(data):
     for res in data:
       
         summary =res['security_advisory']['summary']
+        description=res['security_advisory']['description']
         package_name = res['dependency']['package']['name']
         cve_id = res['security_advisory']['cve_id']
         severity = res['security_advisory']['severity']
@@ -27,6 +28,7 @@ def fetchRecentDependabotIssues(data):
         alert_url = res["html_url"]
         issueTime = datetime.datetime.strptime(res['updated_at'],"%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=datetime.timezone.utc)
         time_diff = now - issueTime
+        
 
         if res['state'] == "open":
           print(res)
@@ -47,7 +49,7 @@ def fetchRecentDependabotIssues(data):
                         "type": "section",
                         "text": {
                           "type": "mrkdwn",
-                          "text": f"⚠️ *New Vulnerability Detected*\n\n*Repository:* `{repoName}@{branchName}`\n\n*Summary:* {summary}\n\n*<{alert_url}|{summary}>*"
+                          "text": f"⚠️ *New Vulnerability Detected*\n\n*Repository:* `{repoName}@{branchName}`\n\n*Summary:* {summary}\n\n*<{alert_url}|{summary}>*\n\n*Description:* {description}"
                         }
                       },
                       {

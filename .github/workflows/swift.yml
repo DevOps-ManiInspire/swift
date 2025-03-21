@@ -43,6 +43,10 @@ jobs:
         env:
           DEPENDABOT_TEST: ${{ secrets.DEPENDABOT_TEST_CLASSIC }}
           SLACK: ${{ secrets.SLACK }}
+          codeCommitter: ${{ github.actor }}
+          commitSHA: ${{ github.sha }}
+          repoName: ${{ github.repository }}
+          branchName: ${{ github.ref }}
           
         run: |
           pip install -r ./.github/requirements.txt

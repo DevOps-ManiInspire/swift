@@ -8,6 +8,10 @@ now = datetime.datetime.now(datetime.UTC)
 
 token=os.environ["DEPENDABOT_TEST"]
 slacktoken=os.environ["SLACK"]
+codeCommitter=os.environ["codeCommitter"]
+commitSHA=os.environ["commitSHA"]
+branchName=os.environ["branchName"]
+repoName=os.environ["repoName"]
 
 slackWrapper = slackNotification(slacktoken,"#monitoring")
 
@@ -43,7 +47,7 @@ def fetchRecentDependabotIssues(data):
                         "type": "section",
                         "text": {
                           "type": "mrkdwn",
-                          "text": f"⚠️ *New Vulnerability Detected*\n\n*Summary:* {summary}\n\n*Repository:* `{repo_name}@{branch_name}`\n\n*<{alert_url}|{summary}>*"
+                          "text": f"⚠️ *New Vulnerability Detected*\n\n*Summary:* {summary}\n\n*Repository:* `{repoName}@{branchName}`\n\n*<{alert_url}|{summary}>*"
                         }
                       },
                       {
@@ -64,7 +68,7 @@ def fetchRecentDependabotIssues(data):
                         "type": "section",
                         "text": {
                           "type": "mrkdwn",
-                          "text": f"- *CVE ID:* `{cve_id}`\n- *Severity:* `{severity}`\n- *Vulnerable Range:* `{vuln_range}`\n- *Detected at:* `{issue_time}`\n- *Committer:* `{committer}`\n- *Commit SHA:* `{commit_sha}`"
+                          "text": f"- *CVE ID:* `{cve_id}`\n- *Severity:* `{severity}`\n- *Vulnerable Range:* `{vuln_range}`\n- *Detected at:* `{issue_time}`\n- *Committer:* `{codeCommitter}`\n- *Commit SHA:* `{commitSHA}`"
                         }
                       },
                       {

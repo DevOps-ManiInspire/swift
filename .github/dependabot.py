@@ -4,14 +4,14 @@ import datetime
 from slack import slackNotification
 import os
 
-log_file = os.path.expanduser("dependabot.log")  # Ensure this matches
+# log_file = os.path.expanduser("dependabot.log")  # Ensure this matches
 
-if not os.path.exists(log_file):
-    raise FileNotFoundError(f"Log file not found: {os.path.abspath(log_file)}")
+# if not os.path.exists(log_file):
+#     raise FileNotFoundError(f"Log file not found: {os.path.abspath(log_file)}")
 
-with open(log_file, "r") as f:
-    data = f.read()
-    print("Log File Content:")
+# with open(log_file, "r") as f:
+#     data = f.read()
+#     print("Log File Content:")
     
 now = datetime.datetime.now(datetime.UTC)
 
@@ -20,7 +20,7 @@ slacktoken=os.environ["SLACK"]
 
 slackWrapper = slackNotification(slacktoken,"#monitoring")
 
-def fetchRecentDependabotIssues(data, ecoSystem):
+def fetchRecentDependabotIssues(data, ecoSystem=None):
     #all_alerts = [alert for page in data for alert in page]  
     for res in data:
         #print(res)
@@ -123,7 +123,7 @@ def filterParentJobDetails(log_file):
 
     return (dependencies[0])
 
-headPipelinePackage = filterParentJobDetails(log_file)
+# headPipelinePackage = filterParentJobDetails(log_file)
 
 page=1
 alerts = []
@@ -155,4 +155,4 @@ while True:
     alerts.extend(data)  # Append to list
     page += 1
 
-fetchRecentDependabotIssues(alerts,headPipelinePackage)
+fetchRecentDependabotIssues(alerts)

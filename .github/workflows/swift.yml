@@ -43,21 +43,16 @@ jobs:
         env:
           DEPENDABOT_TEST: ${{ secrets.DEPENDABOT_TEST_CLASSIC }}
           SLACK: ${{ secrets.SLACK }}
-        run: |
-          # curl -L -H "Authorization: token $DEPENDABOT_TEST" \
-          #      -H "Accept: application/vnd.github+json" \
-          #      "${{ github.event.workflow_run.logs_url }}" \
-          #      -o logs.zip
           
-          # unzip logs.zip -d logs
-          # # cat logs/0_Dependabot.txt
-          # mv logs/0_Dependabot.txt .github/dependabot.log
-          # ls -lrt .github
+        run: |
           pip install -r ./.github/requirements.txt
           cd .github && python dependabot.py
-          
+
       - name: Fetch Commit Details
         run: |
+          echo "Repository Name: ${{ github.repository }}"
+          echo "Repository Owner: ${{ github.repository_owner }}"
+          echo "Repository URL: https://github.com/${{ github.repository }}"
           echo "Commit SHA: ${{ github.sha }}"
           echo "Committer: ${{ github.actor }}"
           echo "Branch: ${{ github.ref }}"

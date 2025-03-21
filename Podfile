@@ -9,7 +9,6 @@ target 'Good News' do
   pod 'Texture'
   pod 'RxSwift', '6.2.0'
   pod 'RxCocoa', '6.2.0'
-  pod 'Shimmer', '~> 1.0'
 
   target 'Good NewsTests' do
     inherit! :search_paths

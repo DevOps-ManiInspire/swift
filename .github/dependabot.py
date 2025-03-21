@@ -38,6 +38,7 @@ def fetchRecentDependabotIssues(data):
           print(time_diff.total_seconds())
           print(package_name)
           if time_diff.total_seconds() <= 100:
+              print("Initiating slack message")
               slack_message="test"
               slackWrapper.send_slack_notification(json.dumps(slack_message))
           else:

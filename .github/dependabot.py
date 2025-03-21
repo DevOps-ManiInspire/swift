@@ -4,15 +4,6 @@ import datetime
 from slack import slackNotification
 import os
 
-# log_file = os.path.expanduser("dependabot.log")  # Ensure this matches
-
-# if not os.path.exists(log_file):
-#     raise FileNotFoundError(f"Log file not found: {os.path.abspath(log_file)}")
-
-# with open(log_file, "r") as f:
-#     data = f.read()
-#     print("Log File Content:")
-    
 now = datetime.datetime.now(datetime.UTC)
 
 token=os.environ["DEPENDABOT_TEST"]
@@ -20,10 +11,8 @@ slacktoken=os.environ["SLACK"]
 
 slackWrapper = slackNotification(slacktoken,"#monitoring")
 
-def fetchRecentDependabotIssues(data, ecoSystem=None):
-    #all_alerts = [alert for page in data for alert in page]  
+def fetchRecentDependabotIssues(data):
     for res in data:
-        #print(res)
         summary =res['security_advisory']['summary']
         package_name = res['dependency']['package']['name']
         cve_id = res['security_advisory']['cve_id']
@@ -41,7 +30,7 @@ def fetchRecentDependabotIssues(data, ecoSystem=None):
           
           print(f"UpdatedAt: {res['updated_at']}")
           print(f"CreatedAt: {res['created_at']}")
-          print(time_diff)
+          print(time_diff.total_seconds)
           print(package_name)
           if time_diff.total_seconds() <= 100:
               slack_message = 	[
@@ -107,7 +96,7 @@ def fetchRecentDependabotIssues(data, ecoSystem=None):
               slackWrapper.send_slack_notification(json.dumps(slack_message))
           else:
               print("The timestamp is older than 5 minutes.")
-              slackWrapper.publishSlackNotificationWebHook("The timestamp is older than 5 minutes.")
+              #slackWrapper.publishSlackNotificationWebHook("The timestamp is older than 5 minutes.")
 
 
 def filterParentJobDetails(log_file):
@@ -119,11 +108,8 @@ def filterParentJobDetails(log_file):
                 jobDefinition=json.loads(line[-1].strip()) \
 
     dependencies = jobDefinition["job"]["dependencies"]
-    #print("Dependencies:", dependencies[0])
 
     return (dependencies[0])
-
-# headPipelinePackage = filterParentJobDetails(log_file)
 
 page=1
 alerts = []
@@ -140,19 +126,17 @@ while True:
         },
     )
 
-    # Handle possible API failure
     if response.status_code != 200:
         print(f"Error: {response.status_code}, {response.text}")
         break
 
-    data = response.json()  # Parse response JSON
+    data = response.json()
 
-    # Check if the response is empty before appending
     if not data:  
         print("No more alerts, stopping.")
         break
     
-    alerts.extend(data)  # Append to list
+    alerts.extend(data)
     page += 1
 
 fetchRecentDependabotIssues(alerts)

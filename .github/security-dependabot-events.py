@@ -17,7 +17,6 @@ slackChannelName = "#monitoring"
 
 slackWrapper = slackNotification(slackWebHookURL, slackChannelName)
 
-
 def fetchRecentDependabotIssues(packageData):
     for packageDetail in packageData:
         # Metadata from the alert

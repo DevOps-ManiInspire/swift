@@ -34,6 +34,7 @@ class slackNotification:
         # }
         try:
             webhook = WebhookClient(self.token)
+            print(slackMessageBlock)
             response = webhook.send(
                 text="fallback",
                 blocks=slackMessageBlock

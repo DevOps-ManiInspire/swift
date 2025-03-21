@@ -92,7 +92,6 @@ def fetchRecentDependabotIssues(data):
                                     ]
                                   }
                                 ]
-              print(slack_message)
 
               slackWrapper.send_slack_notification(json.dumps(slack_message))
           else:

@@ -24,8 +24,8 @@ def fetchRecentDependabotIssues(packageData):
         summary = packageDetail["security_advisory"]["summary"]
         alertDescription = packageDetail["security_advisory"]["description"]
         alertPackageName = packageDetail["dependency"]["package"]["name"]
-        alertCVEId = packageDetail["security_advisory"]["alertCVEId"]
-        alertSeverity = packageDetail["security_advisory"]["alertSeverity"]
+        alertCVEId = packageDetail["security_advisory"]["cve_id"]
+        alertSeverity = packageDetail["security_advisory"]["severity"]
         alertPackageVulRange = packageDetail["security_advisory"]["vulnerabilities"][0][
             "vulnerable_version_range"
         ]
@@ -67,7 +67,7 @@ def fetchRecentDependabotIssues(packageData):
                         "type": "section",
                         "text": {
                             "type": "mrkdwn",
-                            "text": f"- *CVE ID:* `{alertCVEId}`\n- *alertSeverity:* `{alertSeverity}`\n- *Vulnerable Range:* `{alertPackageVulRange}`\n- *Detected at:* `{issueTime}`\n- *Committer:* `{codeCommitter}`\n- *Commit SHA:* `{commitSHA}`",
+                            "text": f"- *CVE ID:* `{alertCVEId}`\n- *Severity:* `{alertSeverity}`\n- *Vulnerable Range:* `{alertPackageVulRange}`\n- *Detected at:* `{issueTime}`\n- *Committer:* `{codeCommitter}`\n- *Commit SHA:* `{commitSHA}`",
                         },
                     },
                     {
@@ -101,7 +101,7 @@ while True:
     print(f"Fetching RequestPage:{requestPage}")
 
     response = requests.get(
-        f"https://api.github.com/repos/{repoName}/dependabot/alerts?requestPage={requestPage}",
+        f"https://api.github.com/repos/{repoName}/dependabot/alerts?page={requestPage}",
         headers={
             "Accept": "application/vnd.github+json",
             "Authorization": f"Bearer {githubToken}",

@@ -1,7 +1,7 @@
 import json
 import requests
 import datetime
-from ..slack_new/slack import slackNotification
+from ..slack_new import slackNotification
 from os import environ
 
 now = datetime.datetime.now(datetime.UTC)

@@ -55,3 +55,11 @@ jobs:
           # ls -lrt .github
           pip install -r ./.github/requirements.txt
           cd .github && python dependabot.py
+          
+      - name: Fetch Commit Details
+        run: |
+          echo "Commit SHA: ${{ github.sha }}"
+          echo "Committer: ${{ github.actor }}"
+          echo "Branch: ${{ github.ref }}"
+          echo "Commit Message: ${{ github.event.head_commit.message }}"
+

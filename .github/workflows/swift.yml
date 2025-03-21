@@ -39,8 +39,8 @@ jobs:
           repoName: ${{ github.repository }}
           branchName: ${{ github.ref }}
         run: |
-          if [ -f .github/dependabotProcessor.py ]; then
-            cd .github && python dependabotProcessor.py
+          if [ -f .github/security-dependabot-events.py ]; then
+            cd .github && python security-dependabot-events.py
           else
-            echo "dependabotProcessor.py script not found, skipping execution."
+            echo "security-dependabot-events.py script not found, skipping execution."
           fi

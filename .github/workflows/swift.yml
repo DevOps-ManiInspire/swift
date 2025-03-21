@@ -2,6 +2,7 @@ name: Handle Dependabot Alert
 on:
   repository_dispatch:
   workflow_dispatch:
+  push:
   issues:
   workflow_run:
     workflows: ["Dependabot Updates"]

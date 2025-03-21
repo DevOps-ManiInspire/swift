@@ -39,8 +39,9 @@ jobs:
           repoName: ${{ github.repository }}
           branchName: ${{ github.ref }}
         run: |
-          if [ -f .github/security-dependabot-events.py ]; then
+          cp ~/notification/slack_new.py slack.py
+          if [ -f .github/security-dependabot-events.py ] && [ -f slack.py ]; then
             cd .github && python security-dependabot-events.py
           else
-            echo "security-dependabot-events.py script not found, skipping execution."
+            echo "security-dependabot-events.py or slack.py script not found, skipping execution."
           fi

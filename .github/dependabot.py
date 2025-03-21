@@ -17,6 +17,7 @@ slackWrapper = slackNotification(slacktoken,"#monitoring")
 
 def fetchRecentDependabotIssues(data):
     for res in data:
+      
         summary =res['security_advisory']['summary']
         package_name = res['dependency']['package']['name']
         cve_id = res['security_advisory']['cve_id']
@@ -34,12 +35,10 @@ def fetchRecentDependabotIssues(data):
           
           print(f"UpdatedAt: {res['updated_at']}")
           print(f"CreatedAt: {res['created_at']}")
-          print(time_diff.total_seconds)
+          print(time_diff.total_seconds())
           print(package_name)
           if time_diff.total_seconds() <= 100:
-              slack_message = [{
-                    "type": "home",
-                    "blocks": [
+              slack_message = [
                       {
                         "type": "divider"
                       },
@@ -90,8 +89,6 @@ def fetchRecentDependabotIssues(data):
                         "type": "divider"
                       }
                     ]
-                  }]
-
               slackWrapper.send_slack_notification(json.dumps(slack_message))
           else:
               print("The timestamp is older than 5 minutes.")

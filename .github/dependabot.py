@@ -47,7 +47,7 @@ def fetchRecentDependabotIssues(data):
                         "type": "section",
                         "text": {
                           "type": "mrkdwn",
-                          "text": f"⚠️ *New Vulnerability Detected*\n\n*Summary:* {summary}\n\n*Repository:* `{repoName}@{branchName}`\n\n*<{alert_url}|{summary}>*"
+                          "text": f"⚠️ *New Vulnerability Detected*\n\n*Repository:* `{repoName}@{branchName}`\n\n*Summary:* {summary}\n\n*<{alert_url}|{summary}>*"
                         }
                       },
                       {

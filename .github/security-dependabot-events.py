@@ -2,16 +2,16 @@ import json
 import requests
 import datetime
 from slack import slackNotification
-from os import environ
+import os
 
 now = datetime.datetime.now(datetime.UTC)
 
-githubToken = environ.get["githubToken"]
-slackWebHookURL = environ["slackWebHookURL"]
-codeCommitter = environ["codeCommitter"]
-commitSHA = environ["commitSHA"]
-repoName = environ["repoName"]
-branchName = environ["branchName"]
+githubToken = os.environ["githubToken"]
+slackWebHookURL = os.environ["slackWebHookURL"]
+codeCommitter = os.environ["codeCommitter"]
+commitSHA = os.environ["commitSHA"]
+repoName = os.environ["repoName"]
+branchName = os.environ["branchName"]
 scanWaitTime = 100  # In Seconds
 slackChannelName = "#monitoring"
 

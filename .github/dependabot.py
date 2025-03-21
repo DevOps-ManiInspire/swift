@@ -68,7 +68,7 @@ def fetchRecentDependabotIssues(data):
                         "type": "section",
                         "text": {
                           "type": "mrkdwn",
-                          "text": f"- *CVE ID:* `{cve_id}`\n- *Severity:* `{severity}`\n- *Vulnerable Range:* `{vuln_range}`\n- *Detected at:* `{issue_time}`\n- *Committer:* `{codeCommitter}`\n- *Commit SHA:* `{commitSHA}`"
+                          "text": f"- *CVE ID:* `{cve_id}`\n- *Severity:* `{severity}`\n- *Vulnerable Range:* `{vuln_range}`\n- *Detected at:* `{issueTime}`\n- *Committer:* `{codeCommitter}`\n- *Commit SHA:* `{commitSHA}`"
                         }
                       },
                       {

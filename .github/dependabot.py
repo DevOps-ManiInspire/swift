@@ -78,7 +78,7 @@ def fetchRecentDependabotIssues(data):
                             "type": "button",
                             "text": {
                               "type": "plain_text",
-                              "emoji": true,
+                              "emoji": bool("true"),
                               "text": "More Info"
                             },
                             "style": "primary",

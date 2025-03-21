@@ -1,64 +1,46 @@
 name: Handle Dependabot Alert
+
 on:
   repository_dispatch:
-  workflow_dispatch:
   push:
-  issues:
-  workflow_run:
-    workflows: ["Dependabot Updates"]
-    types:
-      - completed
- 
-permissions:
-  contents: write
 
 jobs:
   handle-event:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Sleep for 10 seconds
+      - name: Wait to Ensure Logs are Ready
         run: sleep 10s
         shell: bash
 
-      - name: Set up Python
+      - name: Set Up Python Environment
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Print Event Payload
-        run: echo "${{ github.head_repository.downloads_url }}"
-        
-      - name: Print GitHub Event Payload
-        run: echo '${{ toJson(github.event) }}'
-        
-      - name: Print Logs URL
-        run: echo '${{ toJson(github.event.workflow_run.logs_url) }}'
-        
-      - name: Download Workflow Logs
+      - name: Install Python Dependencies
+        run: |
+          if [ -f .github/requirements-dependabot.txt ]; then
+            pip install -r .github/requirements-dependabot.txt
+          else
+            echo "No requirements-dependabot.txt found, skipping dependency installation."
+          fi
+
+      - name: Run Dependabot Processor
         env:
-          DEPENDABOT_TEST: ${{ secrets.DEPENDABOT_TEST_CLASSIC }}
-          SLACK: ${{ secrets.SLACK }}
+          githubToken: ${{ secrets.DEPENDABOT_TEST_CLASSIC }}
+          slackWebHookURL: ${{ secrets.SLACK }}
           codeCommitter: ${{ github.actor }}
           commitSHA: ${{ github.sha }}
           repoName: ${{ github.repository }}
           branchName: ${{ github.ref }}
-          
         run: |
-          pip install -r ./.github/requirements.txt
-          cd .github && python dependabot.py
-
-      - name: Fetch Commit Details
-        run: |
-          echo "Repository Name: ${{ github.repository }}"
-          echo "Repository Owner: ${{ github.repository_owner }}"
-          echo "Repository URL: https://github.com/${{ github.repository }}"
-          echo "Commit SHA: ${{ github.sha }}"
-          echo "Committer: ${{ github.actor }}"
-          echo "Branch: ${{ github.ref }}"
-          echo "Commit Message: ${{ github.event.head_commit.message }}"
-
+          if [ -f .github/dependabot.py ]; then
+            cd .github && python dependabot.py
+          else
+            echo "dependabot.py script not found, skipping execution."
+          fi

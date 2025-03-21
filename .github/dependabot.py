@@ -6,7 +6,7 @@ from os import environ
 
 now = datetime.datetime.now(datetime.UTC)
 
-githubToken = environ["DEPENDABOT_TEST"]
+githubToken = environ["githubToken"]
 slackWebHookURL = environ["SLACK"]
 codeCommitter = environ["codeCommitter"]
 commitSHA = environ["commitSHA"]

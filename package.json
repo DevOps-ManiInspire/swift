@@ -2,6 +2,6 @@
   "name": "vulnerable-project",
   "version": "1.0.0",
   "dependencies": {
-    "mongoose": "4.17.22"
+    "mongoose": "4.17.22" 
   }
 }

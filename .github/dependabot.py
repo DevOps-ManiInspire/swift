@@ -7,7 +7,7 @@ from os import environ
 now = datetime.datetime.now(datetime.UTC)
 
 githubToken = environ["githubToken"]
-slackWebHookURL = environ["SLACK"]
+slackWebHookURL = environ["slackWebHookURL"]
 codeCommitter = environ["codeCommitter"]
 commitSHA = environ["commitSHA"]
 repoName = environ["repoName"]

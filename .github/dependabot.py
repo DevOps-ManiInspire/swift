@@ -33,65 +33,61 @@ def fetchRecentDependabotIssues(data):
           print(time_diff.total_seconds)
           print(package_name)
           if time_diff.total_seconds() <= 100:
-              slack_message = 	[
-                                  {
-                                    "type": "section",
-                                    "text": {
-                                      "type": "mrkdwn",
-                                      "text": f"🚨 Detected a new Vulnerability: *<{alert_url}|{summary}>*"
-                                    }
-                                  },
-                                  {
-                                    "type": "section",
-                                    "fields": [
-                                      {
-                                        "type": "mrkdwn",
-                                        "text": f"*Package:*`{package_name}`"
-                                      },
-                                      {
-                                        "type": "mrkdwn",
-                                        "text": f"*CVE ID:*`{cve_id}`"
-                                      },
-                                      {
-                                        "type": "mrkdwn",
-                                        "text": f"*Severity:*`{severity.upper()}`"
-                                      },
-                                      {
-                                        "type": "mrkdwn",
-                                        "text": f"*Vulnerable Range:*`{vuln_range}`"
-                                      },
-                                      {
-                                        "type": "mrkdwn",
-                                        "text": f"*Detected at:*`{issueTime}`"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "type": "actions",
-                                    "elements": [
-                                      {
-                                        "type": "button",
-                                        "text": {
-                                          "type": "plain_text",
-                                          "emoji": bool("true"),
-                                          "text": "More Info"
-                                        },
-                                        "style": "primary",
-                                        "value": f"{advisory_url}"
-                                      },
-                                      {
-                                        "type": "button",
-                                        "text": {
-                                          "type": "plain_text",
-                                          "emoji": bool("true"),
-                                          "text": "View GitHub Alert"
-                                        },
-                                        "style": "primary",
-                                        "value": f"{alert_url}"
-                                      }
-                                    ]
-                                  }
-                                ]
+              slack_message = 	
+                [{
+                    "type": "home",
+                    "blocks": [
+                      {
+                        "type": "divider"
+                      },
+                      {
+                        "type": "section",
+                        "text": {
+                          "type": "mrkdwn",
+                          "text": f"⚠️ *New Vulnerability Detected*\n\n*Summary:* {summary}\n\n*Repository:* `{repo_name}@{branch_name}`\n\n*<{alert_url}|{summary}>*"
+                        }
+                      },
+                      {
+                        "type": "section",
+                        "text": {
+                          "type": "mrkdwn",
+                          "text": f"*Package:* *`{package_name}`*"
+                        }
+                      },
+                      {
+                        "type": "section",
+                        "text": {
+                          "type": "mrkdwn",
+                          "text": "*Additional Details:*"
+                        }
+                      },
+                      {
+                        "type": "section",
+                        "text": {
+                          "type": "mrkdwn",
+                          "text": f"- *CVE ID:* `{cve_id}`\n- *Severity:* `{severity}`\n- *Vulnerable Range:* `{vuln_range}`\n- *Detected at:* `{issue_time}`\n- *Committer:* `{committer}`\n- *Commit SHA:* `{commit_sha}`"
+                        }
+                      },
+                      {
+                        "type": "actions",
+                        "elements": [
+                          {
+                            "type": "button",
+                            "text": {
+                              "type": "plain_text",
+                              "emoji": true,
+                              "text": "More Info"
+                            },
+                            "style": "primary",
+                            "url": f"{advisory_url}"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "divider"
+                      }
+                    ]
+                  }]
 
               slackWrapper.send_slack_notification(json.dumps(slack_message))
           else:

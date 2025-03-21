@@ -4,6 +4,5 @@
   "dependencies": {
     "lodash": "4.17.20",
     "mongoose": "1.17.21"
-    ""
   }
 }

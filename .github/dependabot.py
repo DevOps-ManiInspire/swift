@@ -38,57 +38,7 @@ def fetchRecentDependabotIssues(data):
           print(time_diff.total_seconds())
           print(package_name)
           if time_diff.total_seconds() <= 100:
-              slack_message = [
-                      {
-                        "type": "divider"
-                      },
-                      {
-                        "type": "section",
-                        "text": {
-                          "type": "mrkdwn",
-                          "text": f"⚠️ *New Vulnerability Detected*\n\n*Summary:* {summary}\n\n*Repository:* `{repoName}@{branchName}`\n\n*<{alert_url}|{summary}>*"
-                        }
-                      },
-                      {
-                        "type": "section",
-                        "text": {
-                          "type": "mrkdwn",
-                          "text": f"*Package:* *`{package_name}`*"
-                        }
-                      },
-                      {
-                        "type": "section",
-                        "text": {
-                          "type": "mrkdwn",
-                          "text": "*Additional Details:*"
-                        }
-                      },
-                      {
-                        "type": "section",
-                        "text": {
-                          "type": "mrkdwn",
-                          "text": f"- *CVE ID:* `{cve_id}`\n- *Severity:* `{severity}`\n- *Vulnerable Range:* `{vuln_range}`\n- *Detected at:* `{issue_time}`\n- *Committer:* `{codeCommitter}`\n- *Commit SHA:* `{commitSHA}`"
-                        }
-                      },
-                      {
-                        "type": "actions",
-                        "elements": [
-                          {
-                            "type": "button",
-                            "text": {
-                              "type": "plain_text",
-                              "emoji": true,
-                              "text": "More Info"
-                            },
-                            "style": "primary",
-                            "url": f"{advisory_url}"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "divider"
-                      }
-                    ]
+              slack_message="test"
               slackWrapper.send_slack_notification(json.dumps(slack_message))
           else:
               print("The timestamp is older than 5 minutes.")

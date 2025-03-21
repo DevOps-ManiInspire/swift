@@ -33,8 +33,7 @@ def fetchRecentDependabotIssues(data):
           print(time_diff.total_seconds)
           print(package_name)
           if time_diff.total_seconds() <= 100:
-              slack_message = 	
-                [{
+              slack_message = [{
                     "type": "home",
                     "blocks": [
                       {

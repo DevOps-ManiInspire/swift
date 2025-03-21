@@ -2,126 +2,109 @@ import json
 import requests
 import datetime
 from slack import slackNotification
-import os
+from os import environ
 
 now = datetime.datetime.now(datetime.UTC)
 
-token=os.environ["DEPENDABOT_TEST"]
-slacktoken=os.environ["SLACK"]
-codeCommitter=os.environ["codeCommitter"]
-commitSHA=os.environ["commitSHA"]
-branchName=os.environ["branchName"]
-repoName=os.environ["repoName"]
+githubToken = environ["DEPENDABOT_TEST"]
+slackWebHookURL = environ["SLACK"]
+codeCommitter = environ["codeCommitter"]
+commitSHA = environ["commitSHA"]
+repoName = environ["repoName"]
+branchName = environ["branchName"]
+scanWaitTime = 100  # In Seconds
+slackChannelName = "#monitoring"
 
-slackWrapper = slackNotification(slacktoken,"#monitoring")
+slackWrapper = slackNotification(slackWebHookURL, slackChannelName)
 
-def fetchRecentDependabotIssues(data):
-    for res in data:
-      
-        summary =res['security_advisory']['summary']
-        description=res['security_advisory']['description']
-        package_name = res['dependency']['package']['name']
-        cve_id = res['security_advisory']['cve_id']
-        severity = res['security_advisory']['severity']
-        vuln_range = res["security_advisory"]['vulnerabilities'][0]['vulnerable_version_range']
-        advisory_url = res["security_advisory"]['references'][0]['url']
-        alert_url = res["html_url"]
-        issueTime = datetime.datetime.strptime(res['updated_at'],"%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=datetime.timezone.utc)
-        time_diff = now - issueTime
-        
 
-        if res['state'] == "open":
-          print(res)
-          print(now)
-          print(f"issueTime: {issueTime}")
-          
-          print(f"UpdatedAt: {res['updated_at']}")
-          print(f"CreatedAt: {res['created_at']}")
-          print(time_diff.total_seconds())
-          print(package_name)
-          if time_diff.total_seconds() <= 100:
-              print("Initiating slack message")
-              slack_message =[
-                      {
-                        "type": "divider"
-                      },
-                      {
+def fetchRecentDependabotIssues(packageData):
+    for packageDetail in packageData:
+        # Metadata from the alert
+        summary = packageDetail["security_advisory"]["summary"]
+        alertDescription = packageDetail["security_advisory"]["description"]
+        alertPackageName = packageDetail["dependency"]["package"]["name"]
+        alertCVEId = packageDetail["security_advisory"]["alertCVEId"]
+        alertSeverity = packageDetail["security_advisory"]["alertSeverity"]
+        alertPackageVulRange = packageDetail["security_advisory"]["vulnerabilities"][0][
+            "vulnerable_version_range"
+        ]
+        alertAdvisoryURL = packageDetail["security_advisory"]["references"][0]["url"]
+        alertURL = packageDetail["html_url"]
+        issueTime = datetime.datetime.strptime(
+            packageDetail["updated_at"], "%Y-%m-%dT%H:%M:%SZ"
+        ).replace(tzinfo=datetime.timezone.utc)
+        AlertTimeDiff = now - issueTime
+
+        if packageDetail["state"] == "open":
+            print(f"Scanning {alertPackageName}")
+
+            if AlertTimeDiff.total_seconds() <= scanWaitTime:
+                print(
+                    f"New Dependabot Alert is detected for package {alertPackageName}"
+                )
+                slackMessageData = [
+                    {"type": "divider"},
+                    {
                         "type": "section",
                         "text": {
-                          "type": "mrkdwn",
-                          "text": f"⚠️ *New Vulnerability Detected*\n\n*Repository:* `{repoName}@{branchName}`\n\n*Summary:* {summary}\n\n*<{alert_url}|{summary}>*\n\n*Vulnerability Report:* {description}"
-                        }
-                      },
-                      {
+                            "type": "mrkdwn",
+                            "text": f"⚠️ *New Vulnerability Detected*\n\n*Repository:* `{repoName}@{branchName}`\n\n*Summary:* {summary}\n\n*<{alertURL}|{summary}>*\n\n*Vulnerability Report:* \n\t{alertDescription}",
+                        },
+                    },
+                    {
                         "type": "section",
                         "text": {
-                          "type": "mrkdwn",
-                          "text": f"*Package:* *`{package_name}`*"
-                        }
-                      },
-                      {
+                            "type": "mrkdwn",
+                            "text": f"*Package:* *`{alertPackageName}`*",
+                        },
+                    },
+                    {
+                        "type": "section",
+                        "text": {"type": "mrkdwn", "text": "*Additional Details:*"},
+                    },
+                    {
                         "type": "section",
                         "text": {
-                          "type": "mrkdwn",
-                          "text": "*Additional Details:*"
-                        }
-                      },
-                      {
-                        "type": "section",
-                        "text": {
-                          "type": "mrkdwn",
-                          "text": f"- *CVE ID:* `{cve_id}`\n- *Severity:* `{severity}`\n- *Vulnerable Range:* `{vuln_range}`\n- *Detected at:* `{issueTime}`\n- *Committer:* `{codeCommitter}`\n- *Commit SHA:* `{commitSHA}`"
-                        }
-                      },
-                      {
+                            "type": "mrkdwn",
+                            "text": f"- *CVE ID:* `{alertCVEId}`\n- *alertSeverity:* `{alertSeverity}`\n- *Vulnerable Range:* `{alertPackageVulRange}`\n- *Detected at:* `{issueTime}`\n- *Committer:* `{codeCommitter}`\n- *Commit SHA:* `{commitSHA}`",
+                        },
+                    },
+                    {
                         "type": "actions",
                         "elements": [
-                          {
-                            "type": "button",
-                            "text": {
-                              "type": "plain_text",
-                              "emoji": bool("true"),
-                              "text": "More Info"
-                            },
-                            "style": "primary",
-                            "url": f"{advisory_url}"
-                          }
-                        ]
-                      },
-                      {
-                        "type": "divider"
-                      }
-                    ]
-              
-              slackWrapper.send_slack_notification(json.dumps(slack_message))
-          else:
-              print("The timestamp is older than 5 minutes.")
-              #slackWrapper.publishSlackNotificationWebHook("The timestamp is older than 5 minutes.")
+                            {
+                                "type": "button",
+                                "text": {
+                                    "type": "plain_text",
+                                    "emoji": bool("true"),
+                                    "text": "More Info",
+                                },
+                                "style": "primary",
+                                "url": f"{alertAdvisoryURL}",
+                            }
+                        ],
+                    },
+                    {"type": "divider"},
+                ]
 
+                slackWrapper.send_slack_notification(json.dumps(slackMessageData))
+            else:
+                print(
+                    f"The timestamp is older than {scanWaitTime} seconds. skipping...!"
+                )
 
-def filterParentJobDetails(log_file):
-    with open(log_file, "r") as f:
-        lines = f.readlines()
-        for line in lines:
-            if 'Job definition:' in line:
-                line = line.split(" Job definition: ")
-                jobDefinition=json.loads(line[-1].strip()) \
-
-    dependencies = jobDefinition["job"]["dependencies"]
-
-    return (dependencies[0])
-
-page=1
-alerts = []
+requestPage = 1
+alertList = []
 
 while True:
-    print(f"Fetching page {page}...")
+    print(f"Fetching RequestPage:{requestPage}")
 
     response = requests.get(
-        f"https://api.github.com/repos/DevOps-ManiInspire/swift/dependabot/alerts?page={page}",
+        f"https://api.github.com/repos/{repoName}/dependabot/alerts?requestPage={requestPage}",
         headers={
             "Accept": "application/vnd.github+json",
-            "Authorization": f"Bearer {token}",
+            "Authorization": f"Bearer {githubToken}",
             "X-GitHub-Api-Version": "2022-11-28",
         },
     )
@@ -130,13 +113,13 @@ while True:
         print(f"Error: {response.status_code}, {response.text}")
         break
 
-    data = response.json()
+    packageData = response.json()
 
-    if not data:  
-        print("No more alerts, stopping.")
+    if not packageData:
+        print("No more alerts, stopping...!")
         break
-    
-    alerts.extend(data)
-    page += 1
 
-fetchRecentDependabotIssues(alerts)
+    alertList.extend(packageData)
+    requestPage += 1
+
+fetchRecentDependabotIssues(alertList)

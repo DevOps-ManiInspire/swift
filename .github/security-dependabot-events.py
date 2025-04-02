@@ -98,6 +98,7 @@ alertList = []
 
 while True:
     print(f"Fetching RequestPage:{requestPage}")
+    print(f"Scanning Repo:{repoName} for dependabot alerts")
 
     response = requests.get(
         f"https://api.github.com/repos/{repoName}/dependabot/alerts?page={requestPage}",

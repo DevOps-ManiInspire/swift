@@ -39,8 +39,6 @@ jobs:
           repoName: ${{ github.repository }}
           branchName: ${{ github.ref }}
         run: |
-      - name: Prepare and Run Dependabot Processor
-        run: |
           cp "${{ github.workspace }}/notification/slack_new.py" "${{ github.workspace }}/.github/slack.py"
 
           if [ -f "${{ github.workspace }}/.github/security-dependabot-events.py" ] && [ -f "${{ github.workspace }}/.github/slack.py" ]; then

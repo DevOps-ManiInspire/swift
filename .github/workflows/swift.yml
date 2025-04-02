@@ -34,10 +34,11 @@ jobs:
         env:
           githubToken: ${{ secrets.DEPENDABOT_TEST_CLASSIC }}
           slackWebHookURL: ${{ secrets.SLACK }}
-          codeCommitter: ${{ github.actor }}
-          commitSHA: ${{ github.sha }}
-          repoName: ${{ github.repository }}
-          branchName: ${{ github.ref }}
+          codeCommitter: ${{ github.event.client_payload.codeCommitter || github.actor }}
+          commitSHA: ${{ github.event.client_payload.commitSHA || github.sha }}
+          repoName: ${{ github.event.client_payload.repoName || github.repository }}
+          branchName: ${{ github.event.client_payload.branchName || github.ref }}
+
         run: |
           cp "${{ github.workspace }}/notification/slack_new.py" "${{ github.workspace }}/.github/slack.py"
 
